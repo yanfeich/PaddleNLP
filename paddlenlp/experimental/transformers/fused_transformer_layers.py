@@ -3008,6 +3008,7 @@ class FusedMultiTransformerHPU(FusedMultiTransformerBase):
                     attn_mask,
                     self.linear_weights[i],
                     scaling_factor=self.head_dim**-0.5,
+                    causal=False
                 )
             else:
                 paddlenlp_ops.index_copy_(input=caches[i], dim=3, index=position, source=key_value_states)
