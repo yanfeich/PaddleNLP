@@ -1454,25 +1454,16 @@ class LlamaBlockInferenceModel(LlamaInferenceModel):
                 block_offsets,
                 block_mapping,
                 attention_mask,
-<<<<<<< HEAD
-=======
                 batch_ids,
->>>>>>> ef6a2c16a (add FusedBlockMultiTransformerHPU and prepare_input_hpu)
                 valid_seq_len,
             ) = prepare_input_hpu(
                 input_ids,
                 rope_emb,
                 block_tables,
+                seq_lens_encoder,
+                seq_lens_decoder,
                 self.block_size,
-<<<<<<< HEAD
-                seq_lens_encoder,
-                seq_lens_decoder,
                 paddle.get_default_dtype(),
-=======
-                seq_lens_this_time,
-                seq_lens_encoder,
-                seq_lens_decoder,
->>>>>>> ef6a2c16a (add FusedBlockMultiTransformerHPU and prepare_input_hpu)
             )
             cum_offsets = None
             kwargs["block_groups"] = block_groups
@@ -1481,10 +1472,7 @@ class LlamaBlockInferenceModel(LlamaInferenceModel):
             kwargs["block_offsets"] = block_offsets
             kwargs["block_mapping"] = block_mapping
             kwargs["block_bias"] = attention_mask
-<<<<<<< HEAD
-=======
             kwargs["batch_ids"] = batch_ids
->>>>>>> ef6a2c16a (add FusedBlockMultiTransformerHPU and prepare_input_hpu)
             kwargs["block_size"] = self.block_size
             kwargs["valid_seq_len"] = valid_seq_len
         else:
