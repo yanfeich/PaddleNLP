@@ -1438,10 +1438,9 @@ class LlamaBlockInferenceModel(LlamaInferenceModel):
         rotary_embs = kwargs.get("rope_emb", None)
 
         if paddle.is_compiled_with_custom_device("intel_hpu"):
-            block_tables = kwargs.get("block_tables", None).to("CPU")
-            seq_lens_encoder = kwargs.get("seq_lens_encoder", None).to("CPU")
-            seq_lens_decoder = kwargs.get("seq_lens_decoder", None).to("CPU")
-            input_ids = input_ids.to("CPU")
+            block_tables = kwargs.get("block_tables", None)
+            seq_lens_encoder = kwargs.get("seq_lens_encoder", None)
+            seq_lens_decoder = kwargs.get("seq_lens_decoder", None)
 
             from paddlenlp_ops import prepare_block_metadata
 
@@ -1470,8 +1469,6 @@ class LlamaBlockInferenceModel(LlamaInferenceModel):
             if is_prompt is True:
                 attention_mask = None
             cum_offsets = None
-            kwargs["seq_lens_encoder"] = seq_lens_encoder
-            kwargs["seq_lens_decoder"] = seq_lens_decoder
             kwargs["block_groups"] = block_groups
             kwargs["block_list"] = block_list
             kwargs["block_indices"] = block_indices
