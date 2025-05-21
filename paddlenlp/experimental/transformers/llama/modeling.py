@@ -1465,7 +1465,7 @@ class LlamaBlockInferenceModel(LlamaInferenceModel):
                 paddle.get_default_dtype(),
             )
 
-            is_prompt = is_prompt.item() == 1 if is_prompt > 0 else None
+            is_prompt = is_prompt.item() == 1 if is_prompt.item() > 0 else None
             if is_prompt is True:
                 attention_mask = None
             cum_offsets = None
