@@ -1475,7 +1475,6 @@ class LlamaBlockInferenceModel(LlamaInferenceModel):
             kwargs["block_offsets"] = block_offsets
             kwargs["block_mapping"] = block_mapping
             kwargs["block_bias"] = attention_mask
-            kwargs["batch_ids"] = batch_ids
             kwargs["block_size"] = self.block_size
             kwargs["batch_ids"] = batch_ids
             kwargs["is_prompt"] = is_prompt
@@ -2022,15 +2021,12 @@ class LlamaForCausalLMBlockInferenceModel(GenerationBlockInferenceModel, LlamaPr
 
         print("Intel HPU: cache_kv_shape = [BN, T, M, H]")
         for _ in range(config.num_hidden_layers):
-<<<<<<< HEAD
-=======
             cache_kv_shape = [
                 max_block_nums,
                 config.block_size,
                 config.num_key_value_heads // max(config.tensor_parallel_degree, 1),
                 config.hidden_size // config.num_attention_heads,
             ]
->>>>>>> ef6a2c16a (add FusedBlockMultiTransformerHPU and prepare_input_hpu)
             cache_k_shapes.append(cache_kv_shape)
             cache_v_shapes.append(cache_kv_shape)
         return cache_k_shapes, cache_v_shapes
